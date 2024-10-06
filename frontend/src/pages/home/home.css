@@ -1,0 +1,45 @@
+.container{
+    margin: auto;
+    position: relative; 
+    /* display: flex; */
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 30rem;
+    width: 55rem;
+    background-color: #f3f3f3;
+    padding: 30px;
+    color: #0f0f0f;
+    border-radius: 20px;
+}
+
+.tabs{
+    padding: 10px;
+    list-style: none;
+    display: flex;
+    background-color: #202020;
+    position: relative;
+    justify-content: space-around;
+    top:0;
+    left:0;
+    color: #ffff;
+    border-radius: 100px; 
+}
+
+.tabs li{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 150px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 100px; 
+}
+
+.tabs li:hover{
+    text-decoration: underline;
+    background-color: #f3f3f3;
+    color: #202020;
+}
