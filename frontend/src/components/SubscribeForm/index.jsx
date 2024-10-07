@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext, useState, useEffect } from "react";
+import DataContext from "../../context/MainContext";
 import axios from "axios";
 
 const SubscribeForm = () => {
@@ -17,8 +18,15 @@ const SubscribeForm = () => {
   //   });
   //   //console.log(clienteId)
   // }, []);
-  const { clientes } = useContext(DataContext);
 
+  const { clientes, fondos } = useContext(DataContext);
+
+  if (!clientes || !fondos || clientes.length === 0 || fondos.length === 0) {
+    return <div>Loading...</div>;
+  }
+
+  // console.log(clientes)
+  // console.log(fondos)
   const handleSubmit = (accion) => {
     // console.log(fondoId)
     // console.log(clienteId)

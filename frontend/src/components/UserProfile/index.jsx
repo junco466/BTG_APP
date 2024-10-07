@@ -1,25 +1,17 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext } from "react";
 import axios from "axios";
 import DataContext from "../../context/MainContext";
 
 const UserProfile = () => {
-  // const [fondos, setFondos] = useState([]);
-  // const [cliente, setCliente] = useState([]);
-  // const [clienteId, setClienteId] = useState(1);
-  // const [fondoId, setFondoId] = useState(1);
-  // const [message, setMessage] = useState("");
+  
+  const { clientes, fondos } = useContext(DataContext);
 
-  // useEffect(() => {
-  //   axios.get("http://localhost:8000/api/fondos/").then((response) => {
-  //     setFondos(response.data);
-  //   });
-  //   axios.get("http://localhost:8000/api/clientes/").then((response) => {
-  //     setCliente(response.data[0]);
-  //   });
-  //   // console.log('clientes:  ')
-  //   // console.log(clientes)
-  // }, []);
-  const { clientes } = useContext(DataContext);
+  if (!clientes || !fondos || clientes.length === 0 || fondos.length === 0) {
+    return <div>Loading...</div>;
+  }
+  // console.log("asdasdasd")
+  console.log(clientes[0])
+  //const cliente = clientes[0]
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
@@ -31,8 +23,8 @@ const UserProfile = () => {
           className="w-20 h-20 rounded-full object-cover"
         />
         <div className="ml-4">
-          <h2 className="text-xl font-bold">{clientes.nombre}</h2>
-          <p className="text-gray-500">ID: {clientes.id}</p>
+          <h2 className="text-xl font-bold">{clientes[0].nombre}</h2>
+          <p className="text-gray-500">ID: {clientes[0].id}</p>
         </div>
       </div>
 
@@ -62,21 +54,21 @@ const UserProfile = () => {
           <div>
             <label className="block text-gray-700">Saldo: </label>
             <label className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              {clientes.saldo}
+              {clientes[0].saldo}
             </label>
           </div>
           {/* Email */}
           <div>
             <label className="block text-gray-700">Email: </label>
             <label className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              {clientes.email}
+              {clientes[0].email}
             </label>
           </div>
           {/* Telefono */}
           <div>
             <label className="block text-gray-700">Telefono:</label>
             <label className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-              {clientes.telefono}
+              {clientes[0].telefono}
             </label>
           </div>
         </div>

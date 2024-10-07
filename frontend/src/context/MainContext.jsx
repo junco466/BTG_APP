@@ -11,12 +11,14 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
       axios.get("http://localhost:8000/api/fondos/").then((response) => {
         setFondos(response.data);
+        console.log('clientes:  ')
+        console.log(clientes)
       });
       axios.get("http://localhost:8000/api/clientes/").then((response) => {
-        setClientes(response.data[0]);
+        setClientes(response.data);
+        console.log('clientes:  ')
+        console.log(clientes)
       });
-      // console.log('clientes:  ')
-      // console.log(clientes)
     }, []);
 
   return (
@@ -24,7 +26,7 @@ export const DataProvider = ({ children }) => {
         clientes,
         fondos, 
         }}>
-            
+
       {children}
     </DataContext.Provider>
   );
