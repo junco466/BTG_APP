@@ -165,6 +165,6 @@ Ahora deberías poder acceder a la aplicación completa en http://localhost:5173
 Asegúrate de tener el puerto 8000 disponible para el backend y el puerto 5173 para el frontend. Si alguno de estos puertos está ocupado, podrías necesitar cambiar los puertos configurados en los servidores.
 En un entorno de producción, deberás configurar CORS de manera más restrictiva para permitir solo los dominios específicos necesarios.
 
-En la raiz de la carpeta encontrara el archivo sql con la consulta del punto 2 de la prueba.
+**En la raiz de la carpeta encontrara el archivo SQL con la consulta del punto 2 de la prueba.**
 
-Queda como trabajo futuro el envio del correo electronico y el despliegue en AWS Cloudformation
+**Queda como trabajo futuro el envio del correo electronico y el despliegue en AWS Cloudformation**
