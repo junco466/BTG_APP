@@ -13,7 +13,7 @@ function Home() {
  
     return(
         <>
-        <div className="container">
+        <div className="container-app">
             <ul className='tabs'>
                 <li className={activeTab==0?'active':''} onClick={()=>seleccionar(0)}>Suscribirse</li>
                 <li className={activeTab==1?'active':''} onClick={()=>seleccionar(1)}>Transacciones</li>

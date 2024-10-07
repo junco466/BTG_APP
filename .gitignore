@@ -1,0 +1,13 @@
+# Ignorar archivos de la carpeta frontend
+/frontend/node_modules
+/frontend/dist
+/frontend/.env
+
+# Ignorar archivos de la carpeta backend
+/backend/venv
+/backend/__pycache__
+/backend/.env
+
+# Ignorar archivos globales (comunes para ambos proyectos)
+/.DS_Store
+.idea/
