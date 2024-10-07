@@ -11,13 +11,9 @@ export const DataProvider = ({ children }) => {
     useEffect(() => {
       axios.get("http://localhost:8000/api/fondos/").then((response) => {
         setFondos(response.data);
-        console.log('clientes:  ')
-        console.log(clientes)
       });
       axios.get("http://localhost:8000/api/clientes/").then((response) => {
         setClientes(response.data);
-        console.log('clientes:  ')
-        console.log(clientes)
       });
     }, []);
 

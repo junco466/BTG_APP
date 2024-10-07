@@ -3,15 +3,11 @@ import axios from "axios";
 import DataContext from "../../context/MainContext";
 
 const UserProfile = () => {
-  
   const { clientes, fondos } = useContext(DataContext);
 
   if (!clientes || !fondos || clientes.length === 0 || fondos.length === 0) {
     return <div>Loading...</div>;
   }
-  // console.log("asdasdasd")
-  console.log(clientes[0])
-  //const cliente = clientes[0]
 
   return (
     <div className="max-w-2xl mx-auto bg-white shadow-lg rounded-lg p-6">
@@ -76,9 +72,9 @@ const UserProfile = () => {
         {/* Fonods inscritos */}
         <div>
           <label className="block text-gray-700">Fondos inscritos</label>
-          <select className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            <option>Designer</option>
-          </select>
+          <label className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            FDO-ACCIONES
+          </label>
         </div>
       </div>
     </div>
