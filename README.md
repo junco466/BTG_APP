@@ -6,6 +6,8 @@ La aplicación está dividida en dos partes:
 1. **Backend** desarrollado con Django (REST Framework).
 2. **Frontend** desarrollado con React.
 
+Se usan estas tecnologias ya que ofrecen ambas tecnologias ofrecen herramientas y practicas que ayudan a manejar los requerimientos de una aplicacion completa. Django por ejemplo permite manejar cosas como bases de datos, seguridad y autenticación sin con interfaces rapidas. Además, puedes crear APIs fácilmente, lo que facilita mucho la conexión con el frontend. Por otro lado react permite hacer que la parte visual de la aplicación sea dinámica y rápida. Te deja crear componentes que puedes reutilizar, lo que hace que el código sea más limpio y fácil de manejar haciendo que todo se siente más fluido.
+
 ### Resumen
 
 1. **Requisitos Previos**: Describe las versiones requeridas de Python, Django, Node.js, y npm.
