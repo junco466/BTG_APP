@@ -140,7 +140,9 @@ El servidor de frontend estará corriendo en http://localhost:5173/
 En caso de querer hacer pruebas de la API con con apps externas como por ejemplo postman, Asegúrate de que las peticiones de la aplicación React apunten al servidor de Django. A continuacion podemos ver los endpoints configurados en la API: 
 
 clientes": "http://127.0.0.1:8000/api/clientes/
+
 fondos": "http://127.0.0.1:8000/api/fondos/
+
 transacciones": "http://127.0.0.1:8000/api/transacciones/
 
 ## 6. Ejecutar la Aplicación Completa
