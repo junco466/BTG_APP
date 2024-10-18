@@ -20,9 +20,6 @@ class ProductosClienteSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class TransaccionSerializer(serializers.ModelSerializer):
-    #fondo_nombre = serializers.CharField(source='fondo.nombre', read_only=True)
-    #fondo = serializers.StringRelatedField()  # Esto asume que el `__str__` de fondo devuelve el nombre.
-    #subscritos = ProductosClienteSerializer(read_only=True)
     fondo = serializers.PrimaryKeyRelatedField(
         queryset=Fondo.objects.all(), write_only=True
     )
