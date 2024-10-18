@@ -1,6 +1,6 @@
 import { useState } from "react";
 import SubscribeForm from "../../components/SubscribeForm";
-import TransactionHistory from "../../components/transactionHistory";
+import TransactionHistory from "../../components/TransactionHistory";
 import './home.css'
 import UserProfile from "../../components/UserProfile";
 
@@ -21,9 +21,9 @@ function Home() {
                 <li className={activeTab==2?'active':''} onClick={()=>seleccionar(2)}>Transacciones</li>
             </ul>
             <div className="tab-content">
-                {activeTab===0 && <UserProfile/>}
+                {activeTab===0 && <UserProfile clienteId={1}/>}
                 {activeTab===1 && <SubscribeForm/>}
-                {activeTab===2 && <TransactionHistory/>}
+                {activeTab===2 && <TransactionHistory clienteId={1}/>}
             </div>
         </div>
         </>

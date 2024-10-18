@@ -17,11 +17,12 @@ const TransactionHistory = ({ clienteId }) => {
       <h1 className="mb-4 text-xl font-bold text-gray-900 dark:text-white md:text-5xl lg:text-3xl">
         Tu Historial de Inversiones: Controla y Optimiza Tus Fondos
       </h1>
-      <ul>
+      <ul className="list-disc">
         {transacciones.map((transaccion) => (
           <li key={transaccion.identificador}>
-            {transaccion.tipo} en {transaccion.fondo_nombre} el{" "}
-            {new Date(transaccion.fecha).toLocaleString()}
+            <b>{transaccion.tipo}</b> en <b>{transaccion.fondo_detalle.nombre}</b> el{" "}
+            {new Date(transaccion.fecha).toLocaleString()}{" "}
+            Con ID unico <b>({transaccion.identificador})</b>
           </li>
         ))}
       </ul>

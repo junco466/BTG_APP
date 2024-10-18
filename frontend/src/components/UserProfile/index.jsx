@@ -1,9 +1,18 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import DataContext from "../../context/MainContext";
 
-const UserProfile = () => {
+const UserProfile = ({ clienteId }) => {
   const { clientes, fondos } = useContext(DataContext);
+  const [suscripciones, setSuscripciones] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(`http://localhost:8000/api/subscritos/?cliente_id=${clienteId}`)
+      .then((response) => {
+        setSuscripciones(response.data);
+      });
+  }, [clienteId]);
 
   if (!clientes || !fondos || clientes.length === 0 || fondos.length === 0) {
     return <div>Loading...</div>;
@@ -72,9 +81,14 @@ const UserProfile = () => {
         {/* Fonods inscritos */}
         <div>
           <label className="block text-gray-700">Fondos inscritos</label>
-          <label className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-            FDO-ACCIONES
-          </label>
+          <ul className="mt-1 w-full border-gray-300 rounded-lg shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
+            {suscripciones.map((suscripcion) => (
+              <li key={suscripcion.id}>
+                {console.log(suscripcion.fondo_detalle.nombre)}
+                {suscripcion.fondo_detalle.nombre}
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </div>

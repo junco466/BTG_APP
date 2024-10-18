@@ -14,10 +14,34 @@ class FondoViewSet(viewsets.ModelViewSet):
     queryset = Fondo.objects.all()
     serializer_class = FondoSerializer
 
+class ProductosClienteViewSet(viewsets.ModelViewSet):
+    queryset = ProductosCliente.objects.all()
+    serializer_class = ProductosClienteSerializer
+
+    def get_queryset(self):
+        queryset = super().get_queryset()  # Esto obtiene el queryset definido
+        cliente_id = self.request.query_params.get('cliente_id', None)
+
+        if cliente_id is not None:
+            # Filtra las transacciones solo para los fondos a los que el cliente está suscrito
+            fondos_ids = ProductosCliente.objects.filter(cliente__id=cliente_id).values_list('fondo_id', flat=True)
+            queryset = queryset.filter(fondo_id__in=fondos_ids)
+
+        return queryset
+
 class TransaccionViewSet(viewsets.ModelViewSet):
     queryset = Transaccion.objects.all()
     serializer_class = TransaccionSerializer
-         
+
+    def list(self, request, *args, **kwargs):
+        cliente_id = request.query_params.get('cliente')  # Obtener el parámetro 'cliente' de la URL
+        if cliente_id:
+            queryset = self.queryset.filter(cliente_id=cliente_id)  # Filtrar por cliente
+        else:
+            queryset = self.queryset
+        
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
 
     def create(self, request, *args, **kwargs):
         # Cargar los datos en el serializer
@@ -46,22 +70,82 @@ class TransaccionViewSet(viewsets.ModelViewSet):
 
         # Lógica de negocio según el tipo de transacción
         if tipo == 'Apertura':
+
+            if ProductosCliente.objects.filter(cliente=cliente, fondo=fondo).exists():
+                raise serializers.ValidationError({
+                    'error': f'El cliente ya está suscrito al fondo {fondo.nombre}.'
+                })
+            
             if cliente.saldo < monto_minimo:
                 raise serializers.ValidationError({
                     'error': f'No tiene saldo disponible para vincularse al fondo {fondo.nombre}'
                 })
-            
 
-            cliente.saldo -= monto_minimo  # Descontar el monto mínimo si es una apertura
+            cliente.saldo -= monto_minimo  # Descontar el monto mínimo si es una apertura    
+            cliente.save() # Guardar los cambios en el cliente
+
+            # Crear la suscripción del cliente al fondo
+            ProductosCliente.objects.create(cliente=cliente, fondo=fondo)
+
         elif tipo == 'Cancelacion':
-            cliente.saldo += monto_minimo  # Aumentar el saldo si es una cancelación
 
-        # Guardar los cambios en el cliente
-        cliente.save()
+            if not ProductosCliente.objects.filter(cliente=cliente, fondo=fondo).exists():
+                raise serializers.ValidationError({
+                    'error': f'El cliente no está suscrito al fondo {fondo.nombre}, por lo tanto no lo puede cancelar.'
+                })
+            
+            cliente.saldo += monto_minimo  # Aumentar el saldo si es una cancelación
+            cliente.save() # Guardar los cambios en el cliente
+
+            # Eliminar la relación de suscripción si existe
+            ProductosCliente.objects.filter(cliente=cliente, fondo=fondo).delete()
 
         # Generar un identificador único y guardar la transacción
         identificador_unico = str(uuid.uuid4())
         serializer.save(identificador=identificador_unico)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         # Enviar notificación por correo electrónico
         # self.enviar_correo(cliente, fondo, tipo)

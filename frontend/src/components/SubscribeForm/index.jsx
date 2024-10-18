@@ -33,7 +33,7 @@ const SubscribeForm = () => {
       })
       .catch((error) => {
         console.log(error.response.data);
-        setMessage(error.response.data.tipo);
+        setMessage(error.response.data);
       });
   };
 
@@ -58,7 +58,7 @@ const SubscribeForm = () => {
       </div>
 
       <form className="max-w-sm mx-auto" onSubmit={handleSubmit}>
-        <div className="mb-5">
+        {/* <div className="mb-5">
           <label
             htmlFor="user"
             className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -80,7 +80,7 @@ const SubscribeForm = () => {
               </option>
             ))}
           </select>
-        </div>
+        </div> */}
 
         <div className="mb-5">
           <label
