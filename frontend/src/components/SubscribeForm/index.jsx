@@ -9,7 +9,7 @@ const SubscribeForm = () => {
   // const [fondoName, setFondoName] = useState("");
   // const [costo, setCosto] = useState(0);
 
-  const { clientes, fondos } = useContext(DataContext);
+  const { clientes, fondos, fetchClientes } = useContext(DataContext);
 
   if (!clientes || !fondos || clientes.length === 0 || fondos.length === 0) {
     return <div>Loading...</div>;
@@ -29,6 +29,7 @@ const SubscribeForm = () => {
         }else{
           setMessage(`Usted ha cancelado el fondo ${fondos[fondoId].nombre}. Devolucion: ${fondos[fondoId].monto_minimo}`);
         }
+        fetchClientes();
       })
       .catch((error) => {
         console.log(error.response.data);

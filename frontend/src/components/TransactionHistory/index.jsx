@@ -20,7 +20,7 @@ const TransactionHistory = ({ clienteId }) => {
       <ul>
         {transacciones.map((transaccion) => (
           <li key={transaccion.identificador}>
-            {transaccion.tipo} en {transaccion.fondo.nombre} el{" "}
+            {transaccion.tipo} en {transaccion.fondo_nombre} el{" "}
             {new Date(transaccion.fecha).toLocaleString()}
           </li>
         ))}
