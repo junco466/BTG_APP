@@ -40,21 +40,18 @@ cd <NOMBRE_DEL_REPOSITORIO>
 Crea un entorno virtual en Python (recomendado):
 
 ```bash
-Copiar código
 python -m venv venv
 ```
 Activa el entorno virtual:
 En Windows:
 
 ```bash
-Copiar código
 venv\Scripts\activate
 ```
 
 En macOS/Linux:
 
 ```bash
-Copiar código
 source venv/bin/activate
 ```
 
@@ -67,14 +64,12 @@ pip install -r backend/requirements.txt
 Si no tienes el archivo requirements.txt, instala manualmente las dependencias con:
 
 ```bash
-Copiar código
 pip install django djangorestframework django-cors-headers
 ```
 
 Realiza las migraciones para crear las tablas en la base de datos:
 
 ```bash
-Copiar código
 python manage.py makemigrations
 python manage.py migrate
 ```
@@ -126,7 +121,6 @@ cd frontend
 Instala las dependencias necesarias:
 
 ```bash
-Copiar código
 npm install
 ```
 
