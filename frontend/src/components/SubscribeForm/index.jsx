@@ -22,14 +22,20 @@ const SubscribeForm = () => {
         fondo: fondoId,
       })
       .then((response) => {
+        console.log('fondoId desde response')
+        console.log(fondoId)
         if (accion == 'Apertura'){
-          setMessage(`Usted se ha registrado al fondo ${fondos[fondoId].nombre} satisfactoriamente. Costo: ${fondos[fondoId].monto_minimo}`)
+        //   console.log('fondoId.nombre desde response')
+        // console.log(fondos)
+          setMessage(`Usted se ha registrado al fondo ${fondos[fondoId-1].nombre} satisfactoriamente. Costo: ${fondos[fondoId-1].monto_minimo}`)
         }else{
-          setMessage(`Usted ha cancelado el fondo ${fondos[fondoId].nombre}. Devolucion: ${fondos[fondoId].monto_minimo}`);
+          setMessage(`Usted ha cancelado el fondo ${fondos[fondoId-1].nombre}. Devolucion: ${fondos[fondoId-1].monto_minimo}`);
         }
         fetchClientes();
       })
       .catch((error) => {
+        console.log('fondoId desde error')
+        console.log(fondoId)
         console.log(error.response.data);
         setMessage(error.response.data);
       });
@@ -68,7 +74,7 @@ const SubscribeForm = () => {
             id="subscripcion"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             value={fondoId}
-            onChange={(e) => setFondoId(e.target.value)}
+            onChange={(e) => (setFondoId(e.target.value))}
             required
           >
             {fondos.map((fondo) => (
