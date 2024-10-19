@@ -7,6 +7,8 @@
 /backend/venv
 /backend/__pycache__
 /backend/*/__pycache__
+__pycache__/
+
 /backend/.env
 
 # Ignorar archivos globales (comunes para ambos proyectos)
