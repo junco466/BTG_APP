@@ -144,9 +144,22 @@ CORS_ALLOW_ALL_ORIGINS = True
 #     "http://localhost:5173",
 # ]
 
+
+# # Configuración de correo electrónico
 # EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'smtp.example.com'
+# EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'your-email@example.com'
-# EMAIL_HOST_PASSWORD = 'your-email-password'
+# EMAIL_HOST_USER = 'jsbalbin466@gmail.com'
+# EMAIL_HOST_PASSWORD = 'owsdpigsdzdazrue'
+# DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+# Configuración de correo electrónico
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465  # Cambiamos a puerto SSL
+EMAIL_USE_SSL = True  # Usamos SSL en lugar de TLS
+EMAIL_USE_TLS = False  # Desactivamos TLS
+EMAIL_HOST_USER = 'jsbalbin466@gmail.com'
+EMAIL_HOST_PASSWORD = 'owsdpigsdzdazrue'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
