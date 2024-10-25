@@ -1,0 +1,47 @@
+// Colección de Clientes
+{
+  "_id": ObjectId(),
+  "nombre": "string",
+  "email": "string",
+  "telefono": "string",
+  "saldo": NumberDecimal("500000.00"),
+  "productos": [
+    {
+      "fondo_id": ObjectId(), // Referencia al fondo
+      "fecha_apertura": ISODate(),
+      "estado": "activo"  // Para tracking del estado del producto
+    }
+  ]
+}
+
+// Colección de Fondos
+{
+  "_id": ObjectId(),
+  "nombre": "string",
+  "monto_minimo": NumberDecimal("0.00"),
+  "categoria": "string", // "FPV" o "FIC"
+  "metadata": {
+    "created_at": ISODate(),
+    "updated_at": ISODate()
+  }
+}
+
+// Colección de Transacciones
+{
+  "_id": ObjectId(),
+  "cliente_id": ObjectId(), // Referencia al cliente
+  "fondo_id": ObjectId(),   // Referencia al fondo
+  "tipo": "string",         // "Apertura" o "Cancelacion"
+  "fecha": ISODate(),
+  "identificador": "string",
+  "metadata": {
+    "monto_fondo_momento": NumberDecimal("0.00"), // Snapshot del monto mínimo del fondo
+    "saldo_cliente_momento": NumberDecimal("0.00") // Snapshot del saldo del cliente
+  }
+}
+
+// Índices recomendados
+db.clientes.createIndex({ "email": 1 }, { unique: true });
+db.transacciones.createIndex({ "identificador": 1 }, { unique: true });
+db.transacciones.createIndex({ "cliente_id": 1 });
+db.transacciones.createIndex({ "fondo_id": 1 });

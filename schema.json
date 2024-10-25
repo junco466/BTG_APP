@@ -1,0 +1,249 @@
+{
+  "database": "gestion_fondos",
+  "collections": {
+    "clientes": {
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["nombre", "email", "telefono", "saldo"],
+          "properties": {
+            "_id": {
+              "bsonType": "objectId",
+              "description": "ID único - generado automáticamente"
+            },
+            "nombre": {
+              "bsonType": "string",
+              "minLength": 2,
+              "maxLength": 100,
+              "description": "Nombre del cliente - requerido"
+            },
+            "email": {
+              "bsonType": "string",
+              "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+              "description": "Email válido - requerido y único"
+            },
+            "telefono": {
+              "bsonType": "string",
+              "minLength": 7,
+              "maxLength": 20,
+              "description": "Teléfono del cliente - requerido"
+            },
+            "saldo": {
+              "bsonType": "decimal",
+              "minimum": 0,
+              "description": "Saldo del cliente - requerido, debe ser positivo"
+            },
+            "fecha_registro": {
+              "bsonType": "date",
+              "description": "Fecha de registro del cliente"
+            },
+            "activo": {
+              "bsonType": "bool",
+              "description": "Estado del cliente",
+              "default": true
+            },
+            "productos": {
+              "bsonType": "array",
+              "description": "Lista de productos del cliente",
+              "items": {
+                "bsonType": "object",
+                "required": ["fondo_id", "fecha_apertura", "estado"],
+                "properties": {
+                  "fondo_id": {
+                    "bsonType": "objectId",
+                    "description": "ID del fondo de inversión"
+                  },
+                  "fecha_apertura": {
+                    "bsonType": "date",
+                    "description": "Fecha de apertura del producto"
+                  },
+                  "estado": {
+                    "bsonType": "string",
+                    "enum": ["activo", "inactivo", "cancelado"],
+                    "description": "Estado del producto"
+                  },
+                  "saldo_inicial": {
+                    "bsonType": "decimal",
+                    "minimum": 0,
+                    "description": "Saldo inicial del producto"
+                  }
+                }
+              }
+            },
+            "metadata": {
+              "bsonType": "object",
+              "properties": {
+                "ultima_actualizacion": {
+                  "bsonType": "date",
+                  "description": "Fecha de última actualización"
+                },
+                "notas": {
+                  "bsonType": "string",
+                  "description": "Notas adicionales"
+                },
+                "categoria": {
+                  "bsonType": "string",
+                  "enum": ["regular", "vip", "premium"],
+                  "description": "Categoría del cliente"
+                }
+              }
+            }
+          }
+        }
+      },
+      "indexes": [
+        {
+          "key": { "email": 1 },
+          "name": "email_unique",
+          "unique": true
+        },
+        {
+          "key": { "telefono": 1 },
+          "name": "telefono_index"
+        }
+      ]
+    },
+    "fondos": {
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": ["nombre", "monto_minimo", "categoria"],
+          "properties": {
+            "_id": {
+              "bsonType": "objectId",
+              "description": "ID único del fondo"
+            },
+            "nombre": {
+              "bsonType": "string",
+              "minLength": 3,
+              "maxLength": 100,
+              "description": "Nombre del fondo - requerido"
+            },
+            "monto_minimo": {
+              "bsonType": "decimal",
+              "minimum": 0,
+              "description": "Monto mínimo de inversión - requerido"
+            },
+            "categoria": {
+              "bsonType": "string",
+              "enum": ["FPV", "FIC"],
+              "description": "Categoría del fondo - requerido"
+            },
+            "fecha_creacion": {
+              "bsonType": "date",
+              "description": "Fecha de creación del fondo"
+            },
+            "estado": {
+              "bsonType": "string",
+              "enum": ["activo", "inactivo", "cerrado"],
+              "default": "activo",
+              "description": "Estado actual del fondo"
+            },
+            "metadata": {
+              "bsonType": "object",
+              "properties": {
+                "descripcion": {
+                  "bsonType": "string",
+                  "description": "Descripción detallada del fondo"
+                },
+                "riesgo": {
+                  "bsonType": "string",
+                  "enum": ["bajo", "medio", "alto"],
+                  "description": "Nivel de riesgo del fondo"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "transacciones": {
+      "validator": {
+        "$jsonSchema": {
+          "bsonType": "object",
+          "required": [
+            "cliente_id",
+            "fondo_id",
+            "tipo",
+            "fecha",
+            "identificador"
+          ],
+          "properties": {
+            "_id": {
+              "bsonType": "objectId",
+              "description": "ID único de la transacción"
+            },
+            "cliente_id": {
+              "bsonType": "objectId",
+              "description": "ID del cliente - requerido"
+            },
+            "fondo_id": {
+              "bsonType": "objectId",
+              "description": "ID del fondo - requerido"
+            },
+            "tipo": {
+              "bsonType": "string",
+              "enum": ["Apertura", "Cancelacion"],
+              "description": "Tipo de transacción - requerido"
+            },
+            "fecha": {
+              "bsonType": "date",
+              "description": "Fecha de la transacción - requerido"
+            },
+            "identificador": {
+              "bsonType": "string",
+              "description": "Identificador único de la transacción - requerido"
+            },
+            "monto": {
+              "bsonType": "decimal",
+              "minimum": 0,
+              "description": "Monto de la transacción"
+            },
+            "estado": {
+              "bsonType": "string",
+              "enum": ["pendiente", "completada", "cancelada", "error"],
+              "default": "pendiente",
+              "description": "Estado de la transacción"
+            },
+            "metadata": {
+              "bsonType": "object",
+              "properties": {
+                "monto_fondo_momento": {
+                  "bsonType": "decimal",
+                  "description": "Monto mínimo del fondo al momento de la transacción"
+                },
+                "saldo_cliente_momento": {
+                  "bsonType": "decimal",
+                  "description": "Saldo del cliente al momento de la transacción"
+                },
+                "notas": {
+                  "bsonType": "string",
+                  "description": "Notas adicionales de la transacción"
+                }
+              }
+            }
+          }
+        }
+      },
+      "indexes": [
+        {
+          "key": { "identificador": 1 },
+          "name": "identificador_unique",
+          "unique": true
+        },
+        {
+          "key": { "cliente_id": 1 },
+          "name": "cliente_id_index"
+        },
+        {
+          "key": { "fondo_id": 1 },
+          "name": "fondo_id_index"
+        },
+        {
+          "key": { "fecha": -1 },
+          "name": "fecha_index"
+        }
+      ]
+    }
+  }
+}

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import DataContext from "../../context/MainContext";
+import foto from '../../assets/jpg/Foto.jpg'
 
 const UserProfile = ({ clienteId }) => {
   const { clientes, fondos } = useContext(DataContext);
@@ -23,7 +24,7 @@ const UserProfile = ({ clienteId }) => {
       {/* Profile Picture and Name */}
       <div className="flex items-center">
         <img
-          src="https://via.placeholder.com/80"
+          src={foto}
           alt="Profile"
           className="w-20 h-20 rounded-full object-cover"
         />
