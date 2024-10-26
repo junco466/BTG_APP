@@ -161,5 +161,4 @@ EMAIL_PORT = 465  # Cambiamos a puerto SSL
 EMAIL_USE_SSL = True  # Usamos SSL en lugar de TLS
 EMAIL_USE_TLS = False  # Desactivamos TLS
 EMAIL_HOST_USER = 'jsbalbin466@gmail.com'
-EMAIL_HOST_PASSWORD = 'owsdpigsdzdazrue'
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
